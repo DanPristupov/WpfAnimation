@@ -53,14 +53,14 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                     <ItemsControl.Items>
-                        <TextBlock Text="ItemsControl" />
+                        <TextBlock Text="{Binding}" />
                     </ItemsControl.Items>
                 </ItemsControl>
             </Grid>
         </DataTemplate>
     </Window.Resources>
     <StackPanel Orientation="Horizontal">
-        <ListBox SelectionMode="Single"  HorizontalContentAlignment="Stretch" Width="200" ItemsSource="{Binding ListBoxItems}">
+        <ListBox SelectionMode="Single"  HorizontalContentAlignment="Stretch" Width="200" ItemsSource="{Binding ListBoxItems}" SelectedItem="{Binding SelectedItem}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="IndianRed" BorderThickness="1">
@@ -70,5 +70,6 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Button Width="60" Height="25" Content="Add" Command="{Binding AddItemCommand}"/>
+        <Button Width="60" Height="25" Content="Remove" Command="{Binding DeleteListBoxItemCommand}"/>
     </StackPanel>
 </catel:Window>

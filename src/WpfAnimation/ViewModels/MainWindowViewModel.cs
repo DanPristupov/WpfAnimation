@@ -1,5 +1,6 @@
 ﻿namespace WpfAnimation.ViewModels
 {
+    using System;
     using System.Collections.ObjectModel;
     using Catel.MVVM;
 
@@ -13,12 +14,35 @@
             AddItemCommand = new Command(OnAddItemCommandExecute);
         }
 
-        public Command AddItemCommand { get; private set; }
+        public string SelectedItem { get; set; }
 
+        public Command AddItemCommand { get; private set; }
         private void OnAddItemCommandExecute()
         {
-            ListBoxItems.Add("new Item");
+            ListBoxItems.Add(DateTime.Now.Ticks.ToString());
         }
+
+        #region DeleteListBoxItem command
+
+        private Command _deleteListBoxItemCommand;
+
+        /// <summary>
+        /// Gets the DeleteListBoxItem command.
+        /// </summary>
+        public Command DeleteListBoxItemCommand
+        {
+            get { return _deleteListBoxItemCommand ?? (_deleteListBoxItemCommand = new Command(DeleteListBoxItem)); }
+        }
+
+        /// <summary>
+        /// Method to invoke when the DeleteListBoxItem command is executed.
+        /// </summary>
+        private void DeleteListBoxItem()
+        {
+            ListBoxItems.Remove(SelectedItem);
+        }
+
+        #endregion
     }
 
 }
