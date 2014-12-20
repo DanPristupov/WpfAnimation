@@ -1,4 +1,4 @@
-﻿<catel:Window x:Class="WpfAnimation.MainWindow"
+﻿<catel:Window x:Class="WpfAnimation.Views.MainWindowView"
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:catel="http://catel.codeplex.com"
@@ -27,7 +27,6 @@
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
-
                     <Trigger.ExitActions>
                         <BeginStoryboard>
                             <Storyboard SpeedRatio="15">
@@ -45,37 +44,31 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <DataTemplate x:Key="SupplyItemDataTemplate">
+        <DataTemplate x:Key="ItemDataTemplate">
             <Grid Background="Transparent" HorizontalAlignment="Stretch">
-                <ItemsControl Style="{StaticResource AnimatingItemsControl}">
+                <ItemsControl Style="{StaticResource AnimatingItemsControl}" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <ContentPresenter Content="{Binding}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                     <ItemsControl.Items>
-                        <TextBlock Text="ItemsControl1" />
-                        <TextBlock Text="ItemsControl2" />
-                        <TextBlock Text="ItemsControl3" />
+                        <TextBlock Text="ItemsControl" />
                     </ItemsControl.Items>
                 </ItemsControl>
             </Grid>
         </DataTemplate>
     </Window.Resources>
     <StackPanel Orientation="Horizontal">
-        <ListBox SelectionMode="Extended" HorizontalContentAlignment="Stretch" Width="200">
+        <ListBox SelectionMode="Single"  HorizontalContentAlignment="Stretch" Width="200" ItemsSource="{Binding ListBoxItems}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="IndianRed" BorderThickness="1">
-                        <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource SupplyItemDataTemplate}" />
+                        <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource ItemDataTemplate}" />
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            <ListBox.Items>
-                <TextBlock Text="Item1" />
-                <TextBlock Text="Item2" />
-                <TextBlock Text="Item3" />
-            </ListBox.Items>
         </ListBox>
+        <Button Width="60" Height="25" Content="Add" Command="{Binding AddItemCommand}"/>
     </StackPanel>
 </catel:Window>
