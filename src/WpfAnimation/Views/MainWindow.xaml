@@ -1,7 +1,8 @@
-﻿<Window x:Class="WpfAnimation.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+﻿<catel:Window x:Class="WpfAnimation.MainWindow"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:catel="http://catel.codeplex.com"
+              Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
         <Style x:Key="AnimatingItemsControl" TargetType="{x:Type ItemsControl}">
             <Setter Property="Opacity" Value="0" />
@@ -15,21 +16,25 @@
                     <Trigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard SpeedRatio="15">
-                                <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleY" To="1.0" Duration="0:0:3">
+                                <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleY"
+                                                 To="1.0" Duration="0:0:3">
                                     <DoubleAnimation.EasingFunction>
                                         <PowerEase Power="3" EasingMode="EaseIn" />
                                     </DoubleAnimation.EasingFunction>
                                 </DoubleAnimation>
-                                <DoubleAnimation BeginTime="0:0:6" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:4" />
+                                <DoubleAnimation BeginTime="0:0:6" Storyboard.TargetProperty="Opacity" To="1.0"
+                                                 Duration="0:0:4" />
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
 
                     <Trigger.ExitActions>
                         <BeginStoryboard>
-                            <Storyboard  SpeedRatio="15">
-                                <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="Opacity" To="0.0" Duration="0:0:4" />
-                                <DoubleAnimation BeginTime="0:0:5" Storyboard.TargetProperty="LayoutTransform.ScaleY" To="0.0" Duration="0:0:3">
+                            <Storyboard SpeedRatio="15">
+                                <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="Opacity" To="0.0"
+                                                 Duration="0:0:4" />
+                                <DoubleAnimation BeginTime="0:0:5" Storyboard.TargetProperty="LayoutTransform.ScaleY"
+                                                 To="0.0" Duration="0:0:3">
                                     <DoubleAnimation.EasingFunction>
                                         <PowerEase Power="3" EasingMode="EaseIn" />
                                     </DoubleAnimation.EasingFunction>
@@ -49,9 +54,9 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                     <ItemsControl.Items>
-                        <TextBlock Text="ItemsControl1"/>
-                        <TextBlock Text="ItemsControl2"/>
-                        <TextBlock Text="ItemsControl3"/>
+                        <TextBlock Text="ItemsControl1" />
+                        <TextBlock Text="ItemsControl2" />
+                        <TextBlock Text="ItemsControl3" />
                     </ItemsControl.Items>
                 </ItemsControl>
             </Grid>
@@ -68,9 +73,9 @@
             </ListBox.ItemTemplate>
             <ListBox.Items>
                 <TextBlock Text="Item1" />
-                <TextBlock Text="Item2"/>
-                <TextBlock Text="Item3"/>
+                <TextBlock Text="Item2" />
+                <TextBlock Text="Item3" />
             </ListBox.Items>
         </ListBox>
     </StackPanel>
-</Window>
+</catel:Window>
