@@ -149,7 +149,7 @@
             </wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
 
         </ListBox>
-        <Button Width="60" Height="25" Content="Add" VerticalAlignment="Top" Command="{Binding AddItemCommand}"/>
-        <Button Width="60" Height="25" Content="Remove" VerticalAlignment="Top" Command="{Binding DeleteListBoxItemCommand}"/>
+        <Button Width="60" Height="25" Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
+        <Button Width="60" Height="25" Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
     </StackPanel>
 </catel:Window>
