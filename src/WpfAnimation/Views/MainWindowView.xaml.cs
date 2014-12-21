@@ -1,6 +1,6 @@
 ﻿using Catel.Windows;
 
-namespace WpfAnimation.Views
+namespace WpfAnimation.Demo.Views
 {
     public partial class MainWindowView : Window
     {

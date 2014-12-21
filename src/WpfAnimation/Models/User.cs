@@ -1,4 +1,4 @@
-﻿namespace WpfAnimation.Models
+﻿namespace WpfAnimation.Demo.Models
 {
     using System;
 

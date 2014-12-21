@@ -1,4 +1,4 @@
-﻿namespace WpfAnimation.ViewModels
+﻿namespace WpfAnimation.Demo.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
