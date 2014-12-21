@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAnimation.Demo", "WpfAnimation\WpfAnimation.Demo.csproj", "{90EAF400-519F-48C9-9B55-078D453916B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAnimation.Demo", "WpfAnimation.Demo\WpfAnimation.Demo.csproj", "{90EAF400-519F-48C9-9B55-078D453916B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAnimation.Core", "WpfAnimation.Core\WpfAnimation.Core.csproj", "{09A988CF-B0A4-487C-801C-847305B8354F}"
 EndProject
