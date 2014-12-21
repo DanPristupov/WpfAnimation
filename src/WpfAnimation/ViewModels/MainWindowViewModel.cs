@@ -1,6 +1,7 @@
 ﻿namespace WpfAnimation.Demo.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Linq;
@@ -10,15 +11,28 @@
     public class MainWindowViewModel: ViewModelBase
     {
         public ObservableCollection<User> ListBoxItems { get; set; }
+        private Random _random;
+        private List<string> _userNames = new List<string>() { "John", "Steve", "Suzanne", "Alen", "Craig", "Rob", "Colin" };
+        private List<string> _commitDescriptions = new List<string>()
+        {
+            "Added remove button",
+            "Updated styles", 
+            "Added list box animation",
+            "Added remove button",
+            "Updated NuGet packages",
+            "Updated list box item template",
+        };
 
         public MainWindowViewModel()
         {
-            ListBoxItems = new ObservableCollection<User>()
+            _random = new Random();
+
+            ListBoxItems = new ObservableCollection<User>();
+            for (int i = 0; i < 3; i++)
             {
-                new User("John","2738sd67", "Added remove button", DateTime.Today.Date),
-                new User("Steve","4s2374g5", "Added add button", DateTime.Today.Date),
-                new User("Suzanne","129sre8j", "Added list box animation", DateTime.Today.Date),
-            };
+                ListBoxItems.Add(CreateUser());
+            }
+            
             AddItemCommand = new Command(OnAddItemCommandExecute);
         }
 
@@ -28,7 +42,7 @@
         private void OnAddItemCommandExecute()
         {
 //            ListBoxItems.Add(DateTime.Now.Ticks.ToString());
-            ListBoxItems.Insert(0, new User("Dave", "dh37491d", "Updated list box item style", DateTime.Today.Date));
+            ListBoxItems.Insert(0, CreateUser());
         }
 
         #region DeleteListBoxItem command
@@ -51,6 +65,15 @@
             ListBoxItems.Remove(SelectedItem);
         }
 
+        private User CreateUser()
+        {
+            var name = _userNames[_random.Next(_userNames.Count - 1)];
+            var commitId = Guid.NewGuid().ToString().ToLower().Substring(0, 8);
+            var commitDescription = _commitDescriptions[_random.Next(_userNames.Count - 1)];
+            var date = DateTime.Today.Date - TimeSpan.FromDays(_random.Next(10));
+
+            return new User(name, commitId, commitDescription, date);
+        }
         #endregion
     }
 
