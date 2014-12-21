@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.IO;
+    using System.Linq;
     using Catel.MVVM;
     using Models;
 
@@ -10,6 +12,7 @@
     {
         public ObservableCollection<Commit> ListBoxItems { get; set; }
         private Random _random;
+        private List<string> _avatars;
         private List<string> _userNames = new List<string>() { "John", "Steve", "Suzanne", "Alen", "Craig", "Rob", "Colin" };
         private List<string> _commitDescriptions = new List<string>()
         {
@@ -24,7 +27,7 @@
         public MainWindowViewModel()
         {
             _random = new Random();
-
+            _avatars = GetAvatars();
             ListBoxItems = new ObservableCollection<Commit>();
             for (int i = 0; i < 3; i++)
             {
@@ -32,6 +35,11 @@
             }
             
             AddItemCommand = new Command(OnAddItemCommandExecute);
+        }
+
+        private List<string> GetAvatars()
+        {
+            return Directory.GetFiles(@".\Resources\Avatars").ToList();
         }
 
         public Commit SelectedItem { get; set; }
@@ -70,6 +78,7 @@
                 UserName = _userNames[_random.Next(_userNames.Count - 1)],
                 Description = _commitDescriptions[_random.Next(_userNames.Count - 1)],
                 Date = DateTime.Today.Date - TimeSpan.FromDays(_random.Next(10)),
+                Avatar = _avatars[_random.Next(_avatars.Count - 1)],
             };
         }
         #endregion
