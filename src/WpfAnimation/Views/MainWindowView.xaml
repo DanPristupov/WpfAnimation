@@ -57,9 +57,10 @@
     <StackPanel Orientation="Horizontal">
         <ListBox SelectionMode="Single" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
                  HorizontalContentAlignment="Stretch" Width="380" SelectedItem="{Binding SelectedItem}"
-                 ItemTemplate="{StaticResource ListItemDataTemplate}">
+                 ItemTemplate="{StaticResource ListItemDataTemplate}" BorderBrush="Transparent">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="0" />
                     <Setter Property="Opacity" Value="1" />
                     <Setter Property="LayoutTransform">
                         <Setter.Value>
