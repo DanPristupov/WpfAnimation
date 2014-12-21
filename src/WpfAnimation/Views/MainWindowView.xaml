@@ -2,7 +2,8 @@
               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:catel="http://catel.codeplex.com"
-              Title="MainWindow" Height="350" Width="525">
+              xmlns:wpfAnimation="clr-namespace:WpfAnimation;assembly=WpfAnimation.Core"
+              Title="WpfAnimation.Demo" Height="350" Width="525">
     <Window.Resources>
         <Style x:Key="AnimatingItemsControl" TargetType="{x:Type ItemsControl}">
             <Setter Property="Opacity" Value="0" />
@@ -94,8 +95,8 @@
         </DataTemplate>
     </Window.Resources>
     <StackPanel Orientation="Horizontal">
-        <ListBox SelectionMode="Single" ItemsSource="{Binding ListBoxItems}" 
-                 HorizontalContentAlignment="Stretch" Width="380" SelectedItem="{Binding SelectedItem}"
+        <ListBox SelectionMode="Single" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
+                 HorizontalContentAlignment="Stretch" Width="350" SelectedItem="{Binding SelectedItem}"
                  ItemTemplate="{StaticResource ListItemDataTemplate}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
@@ -111,6 +112,42 @@
                     </Style.Resources>
                 </Style>
             </ListBox.ItemContainerStyle>
+            <wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
+                <Storyboard SpeedRatio="15">
+                    <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="Opacity">
+                        <DoubleAnimationUsingKeyFrames.KeyFrames>
+                            <DiscreteDoubleKeyFrame Value="0.0"/>
+                        </DoubleAnimationUsingKeyFrames.KeyFrames>
+                    </DoubleAnimationUsingKeyFrames>
+                    <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleY">
+                        <DoubleAnimationUsingKeyFrames.KeyFrames>
+                            <DiscreteDoubleKeyFrame Value="0.0"/>
+                        </DoubleAnimationUsingKeyFrames.KeyFrames>
+                    </DoubleAnimationUsingKeyFrames>
+
+                    <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleY"
+                                     From="0.0" To="1.0" Duration="0:0:3">
+                        <DoubleAnimation.EasingFunction>
+                            <PowerEase Power="3" EasingMode="EaseIn" />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                    <DoubleAnimation BeginTime="0:0:3" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0"
+                                     Duration="0:0:4" />
+                </Storyboard>
+            </wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
+            <wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
+                <Storyboard SpeedRatio="15">
+                    <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="Opacity" To="0.0"
+                                     Duration="0:0:2" />
+                    <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleY"
+                                     To="0.0" Duration="0:0:3">
+                        <DoubleAnimation.EasingFunction>
+                            <PowerEase Power="3" EasingMode="EaseIn" />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
+
         </ListBox>
         <Button Width="60" Height="25" Content="Add" VerticalAlignment="Top" Command="{Binding AddItemCommand}"/>
         <Button Width="60" Height="25" Content="Remove" VerticalAlignment="Top" Command="{Binding DeleteListBoxItemCommand}"/>
