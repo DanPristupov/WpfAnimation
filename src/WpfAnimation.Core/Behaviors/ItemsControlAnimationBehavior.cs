@@ -1,4 +1,4 @@
-﻿namespace WpfAnimation.Behaviors
+﻿namespace WpfAnimation
 {
     using System;
     using System.Collections;
@@ -10,12 +10,12 @@
     using System.Windows.Data;
     using System.Windows.Media.Animation;
 
-    public class ItemsSourceBehavior
+    public class ItemsControlAnimationBehavior
     {
         public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.RegisterAttached("ItemsSource",
                 typeof(IList),
-                typeof(ItemsSourceBehavior),
+                typeof(ItemsControlAnimationBehavior),
                 new UIPropertyMetadata(null, ItemsSourcePropertyChanged));
 
         public static void SetItemsSource(DependencyObject element, IList value)
@@ -131,7 +131,7 @@
         public static readonly DependencyProperty AddItemAnimationProperty =
             DependencyProperty.RegisterAttached("AddItemAnimation",
                 typeof(Storyboard),
-                typeof(ItemsSourceBehavior),
+                typeof(ItemsControlAnimationBehavior),
                 new UIPropertyMetadata(null));
 
         public static void SetAddItemAnimation(DependencyObject element, Storyboard value)
@@ -147,7 +147,7 @@
         public static readonly DependencyProperty RemoveItemAnimationProperty =
             DependencyProperty.RegisterAttached("RemoveItemAnimation",
                 typeof(Storyboard),
-                typeof(ItemsSourceBehavior),
+                typeof(ItemsControlAnimationBehavior),
                 new UIPropertyMetadata(null));
 
         public static void SetRemoveItemAnimation(DependencyObject element, Storyboard value)
