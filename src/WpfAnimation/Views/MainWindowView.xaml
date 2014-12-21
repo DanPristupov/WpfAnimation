@@ -5,46 +5,6 @@
               xmlns:wpfAnimation="clr-namespace:WpfAnimation;assembly=WpfAnimation.Core"
               Title="WpfAnimation.Demo" Height="350" Width="525">
     <Window.Resources>
-        <Style x:Key="AnimatingItemsControl" TargetType="{x:Type ItemsControl}">
-            <Setter Property="Opacity" Value="0" />
-            <Setter Property="LayoutTransform">
-                <Setter.Value>
-                    <ScaleTransform ScaleY="0" />
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="Visibility" Value="Visible">
-                    <Trigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard SpeedRatio="15">
-                                <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleY"
-                                                 To="1.0" Duration="0:0:3">
-                                    <DoubleAnimation.EasingFunction>
-                                        <PowerEase Power="3" EasingMode="EaseIn" />
-                                    </DoubleAnimation.EasingFunction>
-                                </DoubleAnimation>
-                                <DoubleAnimation BeginTime="0:0:6" Storyboard.TargetProperty="Opacity" To="1.0"
-                                                 Duration="0:0:4" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.EnterActions>
-                    <Trigger.ExitActions>
-                        <BeginStoryboard>
-                            <Storyboard SpeedRatio="15">
-                                <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="Opacity" To="0.0"
-                                                 Duration="0:0:4" />
-                                <DoubleAnimation BeginTime="0:0:5" Storyboard.TargetProperty="LayoutTransform.ScaleY"
-                                                 To="0.0" Duration="0:0:3">
-                                    <DoubleAnimation.EasingFunction>
-                                        <PowerEase Power="3" EasingMode="EaseIn" />
-                                    </DoubleAnimation.EasingFunction>
-                                </DoubleAnimation>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.ExitActions>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
         <DataTemplate x:Key="ListItemDataTemplate">
             <Border BorderBrush="Transparent" Padding="5" >
                 <Grid>
