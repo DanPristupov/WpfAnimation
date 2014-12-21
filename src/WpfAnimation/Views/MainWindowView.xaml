@@ -6,7 +6,7 @@
               Title="WpfAnimation.Demo" Height="350" Width="525">
     <Window.Resources>
         <DataTemplate x:Key="ListItemDataTemplate">
-            <Border BorderBrush="Transparent" Padding="5" >
+            <Border BorderBrush="LightGray" Padding="5" BorderThickness="0 1 0 1" Margin="0 -1 0 0" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>
