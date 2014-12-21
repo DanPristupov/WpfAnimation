@@ -6,7 +6,7 @@
               Title="WpfAnimation.Demo" Height="350" Width="525">
     <Window.Resources>
         <DataTemplate x:Key="ListItemDataTemplate">
-            <Border BorderBrush="LightGray" Padding="5" BorderThickness="0 1 0 1" Margin="0 -1 0 0" >
+            <Border BorderBrush="#F2F2F2" Padding="5" BorderThickness="0 1 0 1" Margin="0 -1 0 0" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>
@@ -61,9 +61,10 @@
         </Grid.ColumnDefinitions>
         <ListBox Grid.Column="0" SelectionMode="Single" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
                  HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem}"
-                 ItemTemplate="{StaticResource ListItemDataTemplate}">
+                 ItemTemplate="{StaticResource ListItemDataTemplate}" BorderBrush="Transparent">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="0" />
                     <Setter Property="Opacity" Value="1" />
                     <Setter Property="LayoutTransform">
                         <Setter.Value>
