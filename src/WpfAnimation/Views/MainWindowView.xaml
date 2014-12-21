@@ -15,13 +15,13 @@
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Width="35" Height="35" />
                     <StackPanel Grid.Column="1">
-                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Text="{Binding UserName}"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding CommitId}" />
-                            <TextBlock x:Name="CommitDescription" Text="{Binding CommitDescription}" Foreground="Black" />
+                            <TextBlock x:Name="CommitDescription" Text="{Binding Description}" Foreground="Black" />
                         </StackPanel>
                     </StackPanel>
-                    <TextBlock Grid.Column="2" Text="{Binding Date, StringFormat=\{0:dd.MM.yy\}}"  />
+                    <TextBlock Grid.Column="2" Text="{Binding Date, StringFormat=\{0:dd/MM/yy\}}"  />
                 </Grid>
             </Border>
             <DataTemplate.Triggers>
