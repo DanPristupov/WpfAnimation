@@ -13,7 +13,12 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Width="35" Height="35" />
+                    <Border Grid.Column="0">
+                        <Border.BitmapEffect>
+                            <DropShadowBitmapEffect Color="Black" Softness="0.25" ShadowDepth="0" Opacity="0.3" />
+                        </Border.BitmapEffect>
+                        <Image Source="{Binding Avatar}" Width="35" Height="35" />
+                    </Border>
                     <StackPanel Grid.Column="1">
                         <TextBlock Text="{Binding UserName}"/>
                         <StackPanel Orientation="Horizontal">

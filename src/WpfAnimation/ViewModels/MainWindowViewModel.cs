@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
-    using System.Linq;
     using System.Windows.Media.Imaging;
     using Catel.MVVM;
     using Models;
@@ -21,6 +20,7 @@
             "Updated styles", 
             "Added list box animation",
             "Added remove button",
+            "Upgraded all external libraries",
             "Updated NuGet packages",
             "Updated list box item template",
         };
@@ -40,9 +40,20 @@
 
         private List<BitmapImage> GetAvatars()
         {
-            return Directory.GetFiles(@".\Resources\Avatars")
-                .Select(x => new BitmapImage(new Uri(x, UriKind.Relative)))
-                .ToList();
+            var result = new List<BitmapImage>();
+
+            foreach (var file in Directory.GetFiles(@"Resources\Avatars"))
+            {
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                bitmapImage.UriSource = new Uri( file, UriKind.Relative );
+                bitmapImage.EndInit();
+                result.Add(bitmapImage);
+            }
+
+            return result;
         }
 
         public Commit SelectedItem { get; set; }
@@ -78,10 +89,10 @@
             return new Commit
             {
                 CommitId = Guid.NewGuid().ToString().ToLower().Substring(0, 8),
-                UserName = _userNames[_random.Next(_userNames.Count - 1)],
-                Description = _commitDescriptions[_random.Next(_userNames.Count - 1)],
+                UserName = _userNames[_random.Next(_userNames.Count)],
+                Description = _commitDescriptions[_random.Next(_commitDescriptions.Count)],
                 Date = DateTime.Today.Date - TimeSpan.FromDays(_random.Next(10)),
-                Avatar = _avatars[_random.Next(_avatars.Count - 1)],
+                Avatar = _avatars[_random.Next(0, _avatars.Count)],
             };
         }
         #endregion
