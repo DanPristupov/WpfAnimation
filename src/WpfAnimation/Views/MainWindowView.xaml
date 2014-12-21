@@ -96,7 +96,7 @@
     </Window.Resources>
     <StackPanel Orientation="Horizontal">
         <ListBox SelectionMode="Single" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
-                 HorizontalContentAlignment="Stretch" Width="350" SelectedItem="{Binding SelectedItem}"
+                 HorizontalContentAlignment="Stretch" Width="380" SelectedItem="{Binding SelectedItem}"
                  ItemTemplate="{StaticResource ListItemDataTemplate}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
