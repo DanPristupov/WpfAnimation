@@ -1,6 +1,7 @@
 ﻿namespace WpfAnimation.Demo.Models
 {
     using System;
+    using System.Windows.Media.Imaging;
 
     public class Commit
     {
@@ -9,7 +10,7 @@
         public string CommitId { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
-        public string Avatar { get; set; }
+        public BitmapImage Avatar { get; set; }
         #endregion
     }
 }

@@ -5,6 +5,7 @@
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
+    using System.Windows.Media.Imaging;
     using Catel.MVVM;
     using Models;
 
@@ -12,7 +13,7 @@
     {
         public ObservableCollection<Commit> ListBoxItems { get; set; }
         private Random _random;
-        private List<string> _avatars;
+        private List<BitmapImage> _avatars;
         private List<string> _userNames = new List<string>() { "John", "Steve", "Suzanne", "Alen", "Craig", "Rob", "Colin" };
         private List<string> _commitDescriptions = new List<string>()
         {
@@ -37,9 +38,11 @@
             AddItemCommand = new Command(OnAddItemCommandExecute);
         }
 
-        private List<string> GetAvatars()
+        private List<BitmapImage> GetAvatars()
         {
-            return Directory.GetFiles(@".\Resources\Avatars").ToList();
+            return Directory.GetFiles(@".\Resources\Avatars")
+                .Select(x => new BitmapImage(new Uri(x, UriKind.Relative)))
+                .ToList();
         }
 
         public Commit SelectedItem { get; set; }
