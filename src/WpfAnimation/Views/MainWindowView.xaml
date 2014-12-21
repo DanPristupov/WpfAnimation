@@ -54,9 +54,13 @@
             </DataTemplate.Resources>
         </DataTemplate>
     </Window.Resources>
-    <StackPanel Orientation="Horizontal">
-        <ListBox SelectionMode="Single" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
-                 HorizontalContentAlignment="Stretch" Width="380" SelectedItem="{Binding SelectedItem}"
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="380"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox Grid.Column="0" SelectionMode="Single" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
+                 HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem}"
                  ItemTemplate="{StaticResource ListItemDataTemplate}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
@@ -109,7 +113,10 @@
             </wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
 
         </ListBox>
-        <Button Width="60" Height="25" Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
-        <Button Width="60" Height="25" Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
-    </StackPanel>
+        <GridSplitter Grid.Column="0" Width="1" Background="#D4D4D4"/>
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <Button Width="60" Height="25" Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
+            <Button Width="60" Height="25" Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
+        </StackPanel>
+    </Grid>
 </catel:Window>
