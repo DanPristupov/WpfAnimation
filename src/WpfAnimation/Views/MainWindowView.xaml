@@ -51,7 +51,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Width="35" Height="35" />
                     <StackPanel Grid.Column="1">
@@ -65,10 +65,14 @@
                 </Grid>
             </Border>
             <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}" 
-                             Value="True">
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}"
+                                   Value="True" />
+                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}, Path=IsKeyboardFocusWithin}" Value="True" />
+                    </MultiDataTrigger.Conditions>
                     <Setter Property="Foreground" TargetName="CommitDescription" Value="White"/>
-                </DataTrigger>
+                </MultiDataTrigger>
             </DataTemplate.Triggers>
             <DataTemplate.Resources>
                 <Style TargetType="{x:Type TextBlock}">
@@ -77,10 +81,14 @@
                     <Setter Property="Margin" Value="2 0 2 0"/>
                     <Setter Property="FontSize" Value="13"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}" 
-                             Value="True">
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}"
+                                   Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}, Path=IsKeyboardFocusWithin}" Value="True" />
+                            </MultiDataTrigger.Conditions>
                             <Setter Property="Foreground" Value="White"/>
-                        </DataTrigger>
+                        </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
             </DataTemplate.Resources>
