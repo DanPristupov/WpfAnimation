@@ -3,14 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Collections.Specialized;
-    using System.Linq;
     using Catel.MVVM;
     using Models;
 
     public class MainWindowViewModel: ViewModelBase
     {
-        public ObservableCollection<User> ListBoxItems { get; set; }
+        public ObservableCollection<Commit> ListBoxItems { get; set; }
         private Random _random;
         private List<string> _userNames = new List<string>() { "John", "Steve", "Suzanne", "Alen", "Craig", "Rob", "Colin" };
         private List<string> _commitDescriptions = new List<string>()
@@ -27,7 +25,7 @@
         {
             _random = new Random();
 
-            ListBoxItems = new ObservableCollection<User>();
+            ListBoxItems = new ObservableCollection<Commit>();
             for (int i = 0; i < 3; i++)
             {
                 ListBoxItems.Add(CreateUser());
@@ -36,12 +34,11 @@
             AddItemCommand = new Command(OnAddItemCommandExecute);
         }
 
-        public User SelectedItem { get; set; }
+        public Commit SelectedItem { get; set; }
 
         public Command AddItemCommand { get; private set; }
         private void OnAddItemCommandExecute()
         {
-//            ListBoxItems.Add(DateTime.Now.Ticks.ToString());
             ListBoxItems.Insert(0, CreateUser());
         }
 
@@ -65,14 +62,15 @@
             ListBoxItems.Remove(SelectedItem);
         }
 
-        private User CreateUser()
+        private Commit CreateUser()
         {
-            var name = _userNames[_random.Next(_userNames.Count - 1)];
-            var commitId = Guid.NewGuid().ToString().ToLower().Substring(0, 8);
-            var commitDescription = _commitDescriptions[_random.Next(_userNames.Count - 1)];
-            var date = DateTime.Today.Date - TimeSpan.FromDays(_random.Next(10));
-
-            return new User(name, commitId, commitDescription, date);
+            return new Commit
+            {
+                CommitId = Guid.NewGuid().ToString().ToLower().Substring(0, 8),
+                UserName = _userNames[_random.Next(_userNames.Count - 1)],
+                Description = _commitDescriptions[_random.Next(_userNames.Count - 1)],
+                Date = DateTime.Today.Date - TimeSpan.FromDays(_random.Next(10)),
+            };
         }
         #endregion
     }

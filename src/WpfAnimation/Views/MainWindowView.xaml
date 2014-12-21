@@ -21,7 +21,7 @@
                             <TextBlock x:Name="CommitDescription" Text="{Binding CommitDescription}" Foreground="Black" />
                         </StackPanel>
                     </StackPanel>
-                    <TextBlock Grid.Column="2" Text="{Binding Date, StringFormat=\{0:dd.MM.yy\}}"  />
+                    <TextBlock Grid.Column="2" Text="{Binding Date, StringFormat=\{0:dd/MM/yy\}}"  />
                 </Grid>
             </Border>
             <DataTemplate.Triggers>
