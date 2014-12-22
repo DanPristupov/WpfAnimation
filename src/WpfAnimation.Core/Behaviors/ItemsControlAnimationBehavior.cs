@@ -49,7 +49,7 @@
             {
                 mirrorItemsSource.Add(item);
             }
-            ShowAddItemContainers(itemsControl, itemsSource);
+            ShowAddItemAnimation(itemsControl, itemsSource);
 
             (itemsSource as INotifyCollectionChanged).CollectionChanged += (sender, args) =>
             {
@@ -61,50 +61,21 @@
                         mirrorItemsSource.Insert(index, newItem);
                         index++;
                     }
-                    ShowAddItemContainers(itemsControl, args.NewItems);
+                    ShowAddItemAnimation(itemsControl, args.NewItems);
                 }
                 else if (args.Action == NotifyCollectionChangedAction.Remove)
                 {
-                    foreach (var oldItem in args.OldItems)
-                    {
-                        var container = itemsControl.ItemContainerGenerator.ContainerFromItem(oldItem) as UIElement;
-                        var removeItemAnimation = GetRemoveItemAnimation(itemsControl);
-                        if (container != null && removeItemAnimation != null)
-                        {
-                            Storyboard.SetTarget(removeItemAnimation, container);
-
-                            EventHandler onAnimationCompleted = null;
-                            onAnimationCompleted = ((sender2, args2) =>
-                            {
-                                removeItemAnimation.Completed -= onAnimationCompleted;
-                                mirrorItemsSource.Remove(oldItem);
-                            });
-
-                            removeItemAnimation.Completed += onAnimationCompleted;
-                            removeItemAnimation.Begin();
-                        }
-                        else
-                        {
-                            mirrorItemsSource.Remove(oldItem);
-                        }
-                    }
+                    ShowRemoveItemAnimation(itemsControl, args.OldItems, mirrorItemsSource);
                 }
             };
         }
 
-        private static IList CreateMirrorItemsSource(IList itemsSource)
-        {
-            var listType = typeof(ObservableCollection<>).MakeGenericType(itemsSource.GetType().GetGenericArguments()[0]);
-
-            return (IList)Activator.CreateInstance(listType);
-        }
-
-        private static void ShowAddItemContainers(ItemsControl itemsControl, IList newItems)
+        private static void ShowAddItemAnimation(ItemsControl itemsControl, IList newItems)
         {
             EventHandler statusChanged = null;
-            statusChanged = new EventHandler(delegate
+            statusChanged = (sender, args) =>
             {
-                var showAnimationForMultipleItems = false;
+                var showAnimationForMultipleItems = false; // todo: add similar property to showRemoveItem
                 if (itemsControl.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
                 {
                     itemsControl.ItemContainerGenerator.StatusChanged -= statusChanged;
@@ -126,9 +97,44 @@
                         }
                     }
                 }
-            });
+            };
             itemsControl.ItemContainerGenerator.StatusChanged += statusChanged;
         }
+
+        private static void ShowRemoveItemAnimation(ItemsControl itemsControl, IList oldItems, IList mirrorItemsSource)
+        {
+            foreach (var oldItem in oldItems)
+            {
+                var container = itemsControl.ItemContainerGenerator.ContainerFromItem(oldItem) as UIElement;
+                var removeItemAnimation = GetRemoveItemAnimation(itemsControl);
+                if (container != null && removeItemAnimation != null)
+                {
+                    Storyboard.SetTarget(removeItemAnimation, container);
+
+                    EventHandler onAnimationCompleted = null;
+                    onAnimationCompleted = ((sender, args) =>
+                    {
+                        removeItemAnimation.Completed -= onAnimationCompleted;
+                        mirrorItemsSource.Remove(oldItem);
+                    });
+
+                    removeItemAnimation.Completed += onAnimationCompleted;
+                    removeItemAnimation.Begin();
+                }
+                else
+                {
+                    mirrorItemsSource.Remove(oldItem);
+                }
+            }
+        }
+
+        private static IList CreateMirrorItemsSource(IList itemsSource)
+        {
+            var listType = typeof(ObservableCollection<>).MakeGenericType(itemsSource.GetType().GetGenericArguments()[0]);
+
+            return (IList)Activator.CreateInstance(listType);
+        }
+
 
         public static readonly DependencyProperty AddItemAnimationProperty =
             DependencyProperty.RegisterAttached("AddItemAnimation",
