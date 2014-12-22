@@ -104,15 +104,17 @@
             EventHandler statusChanged = null;
             statusChanged = new EventHandler(delegate
             {
-                // Don't show animation if we have more than one item
                 var showAnimationForMultipleItems = false;
-                if (newItems.Count > 1 && !showAnimationForMultipleItems)
-                {
-                    return;
-                }
                 if (itemsControl.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
                 {
                     itemsControl.ItemContainerGenerator.StatusChanged -= statusChanged;
+
+                    // Don't show animation if we have more than one item
+                    if (newItems.Count > 1 && !showAnimationForMultipleItems)
+                    {
+                        return;
+                    }
+
                     foreach (var newItem in newItems)
                     {
                         var container = itemsControl.ItemContainerGenerator.ContainerFromItem(newItem) as UIElement;
