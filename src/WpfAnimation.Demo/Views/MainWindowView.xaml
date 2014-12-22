@@ -120,9 +120,64 @@
 
         </ListBox>
         <GridSplitter Grid.Column="0" Width="1" Background="#D4D4D4"/>
-        <StackPanel Grid.Column="1" Orientation="Horizontal">
-            <Button Width="60" Height="25" Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
-            <Button Width="60" Height="25" Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
-        </StackPanel>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <Button Width="60" Height="25" Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
+                <Button Width="60" Height="25" Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
+            </StackPanel>
+            <TabControl Grid.Row="1"
+                        wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}">
+                <TabControl.ItemContainerStyle>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleX="1" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.ItemContainerStyle>
+                <wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
+                    <Storyboard SpeedRatio="15">
+                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="Opacity">
+                            <DoubleAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteDoubleKeyFrame Value="0.0"/>
+                            </DoubleAnimationUsingKeyFrames.KeyFrames>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleX">
+                            <DoubleAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteDoubleKeyFrame Value="0.0"/>
+                            </DoubleAnimationUsingKeyFrames.KeyFrames>
+                        </DoubleAnimationUsingKeyFrames>
+
+                        <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                                     From="0.0" To="1.0" Duration="0:0:3">
+                            <DoubleAnimation.EasingFunction>
+                                <PowerEase Power="3" EasingMode="EaseIn" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <DoubleAnimation BeginTime="0:0:3" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0"
+                                     Duration="0:0:4" />
+                    </Storyboard>
+                </wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
+                <wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
+                    <Storyboard SpeedRatio="15">
+                        <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="Opacity" To="0.0"
+                                     Duration="0:0:2" />
+                        <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                                     To="0.0" Duration="0:0:3">
+                            <DoubleAnimation.EasingFunction>
+                                <PowerEase Power="3" EasingMode="EaseIn" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                    </Storyboard>
+                </wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
+
+            </TabControl>
+        </Grid>
     </Grid>
 </catel:Window>
