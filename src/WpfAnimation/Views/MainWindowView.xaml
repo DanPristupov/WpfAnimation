@@ -24,11 +24,10 @@
                              Template="{StaticResource ToogleButtonRightTemplate}" Content="Button" />
             </StackPanel>
         </Grid>
-        <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="#D4D4D4" IsEnabled="False" Height="1" 
-                      HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
-        <ListBox Grid.Row="1" Grid.Column="0" SelectionMode="Single" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
+        <ListBox Grid.Row="1" Grid.Column="0" SelectionMode="Single"
+                 wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
                  HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem}"
-                 ItemTemplate="{StaticResource ListItemDataTemplate}" BorderBrush="Transparent">
+                 ItemTemplate="{StaticResource ListItemDataTemplate}" BorderThickness="0">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Padding" Value="0" />
@@ -80,6 +79,8 @@
                 </Storyboard>
             </wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
         </ListBox>
+        <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#D4D4D4" IsEnabled="False" Height="1" 
+                      HorizontalAlignment="Stretch" VerticalAlignment="Top" />
         <GridSplitter Grid.Row="1" Grid.Column="0" Width="1" Background="#D4D4D4"/>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" >
             <Button Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
