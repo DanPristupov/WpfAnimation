@@ -58,13 +58,67 @@
                 </Style>
             </DataTemplate.Resources>
         </DataTemplate>
+        <ControlTemplate x:Key="ToogleButtonTemplate" TargetType="{x:Type ToggleButton}">
+            <Border BorderBrush="{TemplateBinding BorderBrush}" 
+					Background="{TemplateBinding Background}" 
+                    BorderThickness="{TemplateBinding BorderThickness}"
+					SnapsToDevicePixels="true"
+					CornerRadius="0">
+                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                Margin="{TemplateBinding Padding}" 
+                                RecognizesAccessKey="True" 
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsChecked" Value="false"/>
+                        <Condition Property="IsMouseOver" Value="true"/>
+                    </MultiTrigger.Conditions>
+                </MultiTrigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="#D7D7D7"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" Value="#E6E6E6"/>
+                    <Setter Property="Foreground" Value="DarkGray"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="true">
+                    <Setter Property="Background" Value="#B6B4B6"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style x:Key="ToogleButtonStyle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource {x:Type ToggleButton}}">
+            <Setter Property="Foreground" Value="#474747"/>
+            <Setter Property="Background" Value="#E3E3E3"/>
+            <Setter Property="BorderBrush" Value="#B4B4B4"/>
+            <Setter Property="Padding" Value="7 2 7 2"/>
+            <Setter Property="Margin" Value="0 0 -1 0"/>
+            <Setter Property="Template" Value="{StaticResource ToogleButtonTemplate}"/>
+        </Style>
     </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="380"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListBox Grid.Column="0" SelectionMode="Single" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#D2D2D2" >
+            <StackPanel Orientation="Horizontal" Margin="5 0 5 0">
+                <RadioButton GroupName="ToogleButtonGroup" Height="25" Style="{StaticResource ToogleButtonStyle}" Content="Button" />
+                <RadioButton GroupName="ToogleButtonGroup" Height="25" IsEnabled="False" Style="{StaticResource ToogleButtonStyle}"
+                             Content="Button" />
+                <RadioButton GroupName="ToogleButtonGroup" Height="25" Style="{StaticResource ToogleButtonStyle}" Content="Button" />
+                <RadioButton GroupName="ToogleButtonGroup" Height="25" Style="{StaticResource ToogleButtonStyle}" Content="Button" />
+            </StackPanel>
+        </Grid>
+        <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="#D4D4D4" IsEnabled="False" Height="1" 
+                      HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+        <ListBox Grid.Row="1" Grid.Column="0" SelectionMode="Single" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
                  HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem}"
                  ItemTemplate="{StaticResource ListItemDataTemplate}" BorderBrush="Transparent">
             <ListBox.ItemContainerStyle>
@@ -117,10 +171,9 @@
                     </DoubleAnimation>
                 </Storyboard>
             </wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
-
         </ListBox>
-        <GridSplitter Grid.Column="0" Width="1" Background="#D4D4D4"/>
-        <StackPanel Grid.Column="1" Orientation="Horizontal">
+        <GridSplitter Grid.Row="1" Grid.Column="0" Width="1" Background="#D4D4D4"/>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" >
             <Button Width="60" Height="25" Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
             <Button Width="60" Height="25" Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
         </StackPanel>
