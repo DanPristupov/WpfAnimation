@@ -4,9 +4,6 @@
               xmlns:catel="http://catel.codeplex.com"
               xmlns:wpfAnimation="clr-namespace:WpfAnimation;assembly=WpfAnimation.Core"
               Title="WpfAnimation.Demo" Height="350" Width="525">
-    <Window.Resources>
-        
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -18,11 +15,13 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#F4F4F4" >
             <StackPanel Orientation="Horizontal" Margin="5 0 5 0">
-                <RadioButton GroupName="ToogleButtonGroup" Height="25" Style="{StaticResource ToogleButtonStyle}" Content="Button" />
-                <RadioButton GroupName="ToogleButtonGroup" Height="25" IsEnabled="False" Style="{StaticResource ToogleButtonStyle}"
+                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="Button"
+                             Template="{StaticResource ToogleButtonLeftTemplate}"/>
+                <RadioButton GroupName="ToogleButtonGroup" IsEnabled="False" Style="{StaticResource ToogleButtonStyle}"
                              Content="Button" />
-                <RadioButton GroupName="ToogleButtonGroup" Height="25" Style="{StaticResource ToogleButtonStyle}" Content="Button" />
-                <RadioButton GroupName="ToogleButtonGroup" Height="25" Style="{StaticResource ToogleButtonStyle}" Content="Button" />
+                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="Button" />
+                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" 
+                             Template="{StaticResource ToogleButtonRightTemplate}" Content="Button" />
             </StackPanel>
         </Grid>
         <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="#D4D4D4" IsEnabled="False" Height="1" 
@@ -83,8 +82,8 @@
         </ListBox>
         <GridSplitter Grid.Row="1" Grid.Column="0" Width="1" Background="#D4D4D4"/>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" >
-            <Button Width="60" Height="25" Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
-            <Button Width="60" Height="25" Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
+            <Button Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
+            <Button Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
         </StackPanel>
     </Grid>
 </catel:Window>
