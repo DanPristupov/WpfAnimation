@@ -77,25 +77,55 @@
                         <Condition Property="IsMouseOver" Value="true"/>
                     </MultiTrigger.Conditions>
                 </MultiTrigger>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="#D7D7D7"/>
-                </Trigger>
                 <Trigger Property="IsEnabled" Value="false">
                     <Setter Property="Background" Value="#E6E6E6"/>
                     <Setter Property="Foreground" Value="DarkGray"/>
                 </Trigger>
                 <Trigger Property="IsChecked" Value="true">
-                    <Setter Property="Background" Value="#B6B4B6"/>
+                    <Setter Property="Background" Value="#7A7A7A"/>
+                    <Setter Property="BorderBrush" Value="#7A7A7A"/>
+                    <Setter Property="Foreground" Value="White"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <Style x:Key="ToogleButtonStyle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource {x:Type ToggleButton}}">
             <Setter Property="Foreground" Value="#474747"/>
-            <Setter Property="Background" Value="#E3E3E3"/>
+            <Setter Property="Background" Value="#F4F4F4"/>
             <Setter Property="BorderBrush" Value="#B4B4B4"/>
             <Setter Property="Padding" Value="7 2 7 2"/>
             <Setter Property="Margin" Value="0 0 -1 0"/>
             <Setter Property="Template" Value="{StaticResource ToogleButtonTemplate}"/>
+        </Style>
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="{x:Type Button}">
+            <Border Background="{TemplateBinding Background}" 
+					BorderBrush="{TemplateBinding BorderBrush}"
+					BorderThickness="{TemplateBinding BorderThickness}"
+					CornerRadius="3">
+                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							Margin="{TemplateBinding Padding}" 
+							RecognizesAccessKey="True" 
+							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="BorderBrush" Value="#7A7A7A"/>
+                    <Setter Property="Background" Value="#7A7A7A"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" Value="#E6E6E6"/>
+                    <Setter Property="Foreground" Value="DarkGray"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Foreground" Value="#474747"/>
+            <Setter Property="Background" Value="#F4F4F4"/>
+            <Setter Property="BorderBrush" Value="#B4B4B4"/>
+            <Setter Property="Padding" Value="7 2 7 2"/>
+            <Setter Property="Margin" Value="0 0 -1 0"/>
+            <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -107,7 +137,7 @@
             <ColumnDefinition Width="380"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#D2D2D2" >
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#F4F4F4" >
             <StackPanel Orientation="Horizontal" Margin="5 0 5 0">
                 <RadioButton GroupName="ToogleButtonGroup" Height="25" Style="{StaticResource ToogleButtonStyle}" Content="Button" />
                 <RadioButton GroupName="ToogleButtonGroup" Height="25" IsEnabled="False" Style="{StaticResource ToogleButtonStyle}"
