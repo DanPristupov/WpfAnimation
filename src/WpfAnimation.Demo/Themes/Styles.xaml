@@ -18,7 +18,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0">
                     <Border.BitmapEffect>
@@ -33,7 +32,7 @@
                         <TextBlock x:Name="CommitDescription" Text="{Binding Description}" Foreground="Black" />
                     </StackPanel>
                 </StackPanel>
-                <TextBlock Grid.Column="2" Text="{Binding Date, StringFormat=\{0:dd/MM/yy\}}"  />
+                <TextBlock Grid.Column="1" Text="{Binding Date, StringFormat=\{0:dd/MM/yy\}}" HorizontalAlignment="Right"  />
             </Grid>
         </Border>
         <DataTemplate.Triggers>
