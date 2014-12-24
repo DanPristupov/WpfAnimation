@@ -4,69 +4,30 @@
               xmlns:catel="http://catel.codeplex.com"
               xmlns:wpfAnimation="clr-namespace:WpfAnimation;assembly=WpfAnimation.Core"
               Title="WpfAnimation.Demo" Height="350" Width="525">
-    <Window.Resources>
-        <DataTemplate x:Key="ListItemDataTemplate">
-            <Border BorderBrush="#F2F2F2" Padding="5" BorderThickness="0 1 0 1" Margin="0 -1 0 0" >
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0">
-                        <Border.BitmapEffect>
-                            <DropShadowBitmapEffect Color="Black" Softness="0.25" ShadowDepth="0" Opacity="0.3" />
-                        </Border.BitmapEffect>
-                        <Image Source="{Binding Avatar}" Width="35" Height="35" />
-                    </Border>
-                    <StackPanel Grid.Column="1">
-                        <TextBlock Text="{Binding UserName}"/>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding CommitId}" />
-                            <TextBlock x:Name="CommitDescription" Text="{Binding Description}" Foreground="Black" />
-                        </StackPanel>
-                    </StackPanel>
-                    <TextBlock Grid.Column="2" Text="{Binding Date, StringFormat=\{0:dd/MM/yy\}}"  />
-                </Grid>
-            </Border>
-            <DataTemplate.Triggers>
-                <MultiDataTrigger>
-                    <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}"
-                                   Value="True" />
-                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}, Path=IsKeyboardFocusWithin}" Value="True" />
-                    </MultiDataTrigger.Conditions>
-                    <Setter Property="Foreground" TargetName="CommitDescription" Value="White"/>
-                </MultiDataTrigger>
-            </DataTemplate.Triggers>
-            <DataTemplate.Resources>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="Foreground" Value="Gray"/>
-                    <Setter Property="FontFamily" Value="Helvetica"/>
-                    <Setter Property="Margin" Value="2 0 2 0"/>
-                    <Setter Property="FontSize" Value="13"/>
-                    <Style.Triggers>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}"
-                                   Value="True" />
-                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}, Path=IsKeyboardFocusWithin}" Value="True" />
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="Foreground" Value="White"/>
-                        </MultiDataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </DataTemplate.Resources>
-        </DataTemplate>
-    </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="380"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListBox Grid.Column="0" SelectionMode="Single" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#F4F4F4" >
+            <StackPanel Orientation="Horizontal" Margin="5 0 5 0">
+                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="Button"
+                             Template="{StaticResource ToogleButtonLeftTemplate}"/>
+                <RadioButton GroupName="ToogleButtonGroup" IsEnabled="False" Style="{StaticResource ToogleButtonStyle}"
+                             Content="Button" />
+                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="Button" />
+                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" 
+                             Template="{StaticResource ToogleButtonRightTemplate}" Content="Button" />
+            </StackPanel>
+        </Grid>
+        <ListBox Grid.Row="1" Grid.Column="0" SelectionMode="Single"
+                 wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
                  HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem}"
-                 ItemTemplate="{StaticResource ListItemDataTemplate}" BorderBrush="Transparent">
+                 ItemTemplate="{StaticResource ListItemDataTemplate}" BorderThickness="0">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Padding" Value="0" />
@@ -117,67 +78,68 @@
                     </DoubleAnimation>
                 </Storyboard>
             </wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
-
         </ListBox>
-        <GridSplitter Grid.Column="0" Width="1" Background="#D4D4D4"/>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <Button Width="60" Height="25" Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
-                <Button Width="60" Height="25" Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
-            </StackPanel>
-            <TabControl Grid.Row="1"
+        <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#D4D4D4" IsEnabled="False" Height="1" 
+                      HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <Button Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
+            <Button Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
+        </StackPanel>
+        <GridSplitter Grid.Row="1" Grid.Column="0" Width="1" Background="#D4D4D4"/>
+        <TabControl Grid.Row="1" Grid.Column="1"
                         wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}">
-                <TabControl.ItemContainerStyle>
-                    <Style TargetType="TabItem">
-                        <Setter Property="Opacity" Value="1" />
-                        <Setter Property="LayoutTransform">
-                            <Setter.Value>
-                                <ScaleTransform ScaleX="1" />
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </TabControl.ItemContainerStyle>
-                <wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
-                    <Storyboard SpeedRatio="15">
-                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="Opacity">
-                            <DoubleAnimationUsingKeyFrames.KeyFrames>
-                                <DiscreteDoubleKeyFrame Value="0.0"/>
-                            </DoubleAnimationUsingKeyFrames.KeyFrames>
-                        </DoubleAnimationUsingKeyFrames>
-                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleX">
-                            <DoubleAnimationUsingKeyFrames.KeyFrames>
-                                <DiscreteDoubleKeyFrame Value="0.0"/>
-                            </DoubleAnimationUsingKeyFrames.KeyFrames>
-                        </DoubleAnimationUsingKeyFrames>
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <HeaderedContentControl Header="{Binding UserName}"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="TabItem">
+                    <Setter Property="Opacity" Value="1" />
+                    <Setter Property="LayoutTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1" />
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.ItemContainerStyle>
+            <wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
+                <Storyboard SpeedRatio="15">
+                    <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="Opacity">
+                        <DoubleAnimationUsingKeyFrames.KeyFrames>
+                            <DiscreteDoubleKeyFrame Value="0.0"/>
+                        </DoubleAnimationUsingKeyFrames.KeyFrames>
+                    </DoubleAnimationUsingKeyFrames>
+                    <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleX">
+                        <DoubleAnimationUsingKeyFrames.KeyFrames>
+                            <DiscreteDoubleKeyFrame Value="0.0"/>
+                        </DoubleAnimationUsingKeyFrames.KeyFrames>
+                    </DoubleAnimationUsingKeyFrames>
 
-                        <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                    <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleX"
                                      From="0.0" To="1.0" Duration="0:0:3">
-                            <DoubleAnimation.EasingFunction>
-                                <PowerEase Power="3" EasingMode="EaseIn" />
-                            </DoubleAnimation.EasingFunction>
-                        </DoubleAnimation>
-                        <DoubleAnimation BeginTime="0:0:3" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0"
+                        <DoubleAnimation.EasingFunction>
+                            <PowerEase Power="3" EasingMode="EaseIn" />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                    <DoubleAnimation BeginTime="0:0:3" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0"
                                      Duration="0:0:4" />
-                    </Storyboard>
-                </wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
-                <wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
-                    <Storyboard SpeedRatio="15">
-                        <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="Opacity" To="0.0"
+                </Storyboard>
+            </wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
+            <wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
+                <Storyboard SpeedRatio="15">
+                    <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="Opacity" To="0.0"
                                      Duration="0:0:2" />
-                        <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                    <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleX"
                                      To="0.0" Duration="0:0:3">
-                            <DoubleAnimation.EasingFunction>
-                                <PowerEase Power="3" EasingMode="EaseIn" />
-                            </DoubleAnimation.EasingFunction>
-                        </DoubleAnimation>
-                    </Storyboard>
-                </wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
+                        <DoubleAnimation.EasingFunction>
+                            <PowerEase Power="3" EasingMode="EaseIn" />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
 
-            </TabControl>
-        </Grid>
+        </TabControl>
+
     </Grid>
 </catel:Window>
