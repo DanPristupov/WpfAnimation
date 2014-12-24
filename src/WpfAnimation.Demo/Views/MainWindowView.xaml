@@ -15,11 +15,11 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#F4F4F4" >
             <StackPanel Orientation="Horizontal" Margin="5 0 5 0">
-                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="Button"
+                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="ListBox"
                              Template="{StaticResource ToogleButtonLeftTemplate}"/>
                 <RadioButton GroupName="ToogleButtonGroup" IsEnabled="False" Style="{StaticResource ToogleButtonStyle}"
-                             Content="Button" />
-                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="Button" />
+                             Content="TabControl" />
+                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="Expander" />
                 <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" 
                              Template="{StaticResource ToogleButtonRightTemplate}" Content="Button" />
             </StackPanel>
