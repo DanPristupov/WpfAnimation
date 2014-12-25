@@ -12,13 +12,13 @@
     <SolidColorBrush x:Key="ScrollBarHotThumb" Color="#7A7A7A"/>
     <SolidColorBrush x:Key="ScrollBarSelectedThumb" Color="#7A7A7A"/>
 
-    <SolidColorBrush x:Key="TabControlNormalBorderBrush" Color="#B3B3B3"/>
-    <SolidColorBrush x:Key="TabItemHotBackground" Color="#B9B7B9"/>
-    <SolidColorBrush x:Key="TabItemSelectedBackground" Color="#D8D8D8"/>
-    <SolidColorBrush x:Key="TabItemHotBorderBrush" Color="#B3B3B3"/>
+    <SolidColorBrush x:Key="TabControlNormalBorderBrush" Color="#DBDBDB"/>
+    <SolidColorBrush x:Key="TabItemHotBackground" Color="#E3E3E3"/>
+    <SolidColorBrush x:Key="TabItemSelectedBackground" Color="#F6F6F6"/>
+    <SolidColorBrush x:Key="TabItemHotBorderBrush" Color="#DBDBDB"/>
     <SolidColorBrush x:Key="TabItemDisabledBackground" Color="DarkGray"/>
-    <SolidColorBrush x:Key="TabItemDisabledBorderBrush" Color="#B3B3B3"/>
-    <SolidColorBrush x:Key="TabItemButtonNormalBackground" Color="#C5C5C5"/>
+    <SolidColorBrush x:Key="TabItemDisabledBorderBrush" Color="#DBDBDB"/>
+    <SolidColorBrush x:Key="TabItemButtonNormalBackground" Color="#ECECEC"/>
 
     <Geometry x:Key="RepeatButton">M3.5445026,0 L7.0890052,7.0890053 L3.0459049E-09,7.0890053 z</Geometry>
     
