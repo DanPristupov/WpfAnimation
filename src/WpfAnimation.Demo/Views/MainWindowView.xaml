@@ -40,8 +40,14 @@
             <ColumnDefinition Width="370"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="{StaticResource TopGridBackground}" >
-            <StackPanel Orientation="Horizontal" Margin="5 0 5 0">
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="{StaticResource TopGridBackground}" MinWidth="520" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="WPF Animation library" FontWeight="400" FontSize="14" Height="20" Margin="5" Foreground="{StaticResource ForegroundBrush}" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                 <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="ListBox"
                              Template="{StaticResource ToogleButtonLeftTemplate}"/>
                 <RadioButton GroupName="ToogleButtonGroup" IsEnabled="False" Style="{StaticResource ToogleButtonStyle}"
@@ -49,6 +55,10 @@
                 <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="Expander" />
                 <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" 
                              Template="{StaticResource ToogleButtonRightTemplate}" Content="Button" />
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5 0 5 0">
+                <Button Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
+                <Button Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
             </StackPanel>
         </Grid>
         <ListBox Grid.Row="1" Grid.Column="0" SelectionMode="Single"
@@ -93,10 +103,6 @@
         </ListBox>
         <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#D4D4D4" IsEnabled="False" Height="1" 
                       HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-            <Button Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
-            <Button Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
-        </StackPanel>
         <GridSplitter Grid.Row="1" Grid.Column="0" Width="1" Background="#D4D4D4"/>
         <TabControl Grid.Row="1" Grid.Column="1" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}">
             <TabControl.ItemTemplate>
