@@ -16,9 +16,11 @@
     <SolidColorBrush x:Key="TabItemHotBackground" Color="#E3E3E3"/>
     <SolidColorBrush x:Key="TabItemSelectedBackground" Color="#F6F6F6"/>
     <SolidColorBrush x:Key="TabItemHotBorderBrush" Color="#DBDBDB"/>
+    <SolidColorBrush x:Key="TabItemButtonNormalBackground" Color="#ECECEC"/>
+    <SolidColorBrush x:Key="TabPanelBackgroundBrush" Color="#ECECEC"/>
+    <SolidColorBrush x:Key="TabPanelBorderBrush" Color="#DBDBDB"/>
     <SolidColorBrush x:Key="TabItemDisabledBackground" Color="DarkGray"/>
     <SolidColorBrush x:Key="TabItemDisabledBorderBrush" Color="#DBDBDB"/>
-    <SolidColorBrush x:Key="TabItemButtonNormalBackground" Color="#ECECEC"/>
 
     <Geometry x:Key="RepeatButton">M3.5445026,0 L7.0890052,7.0890053 L3.0459049E-09,7.0890053 z</Geometry>
     
@@ -616,8 +618,14 @@
                             <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
                             <RowDefinition x:Name="RowDefinition1" Height="*"/>
                         </Grid.RowDefinitions>
-                        <TabPanel x:Name="HeaderPanel" Grid.Column="0" IsItemsHost="true" Grid.Row="0" 
-                                  KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"/>
+                        <StackPanel Grid.Row="0" Grid.Column="0">
+                            <Border BorderBrush="{StaticResource TabPanelBorderBrush}" 
+                                    BorderThickness="0 1 0 0" Margin="0 0 0 -1" Panel.ZIndex="2" />
+                            <TabPanel x:Name="HeaderPanel" IsItemsHost="true"  
+                                        KeyboardNavigation.TabIndex="1" Panel.ZIndex="1" 
+                                        Background="{StaticResource TabPanelBackgroundBrush}"/>
+                        </StackPanel>
+                        
                         <Border x:Name="ContentPanel" BorderBrush="{TemplateBinding BorderBrush}" 
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 Background="{TemplateBinding Background}" 
