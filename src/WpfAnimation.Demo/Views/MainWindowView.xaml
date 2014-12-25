@@ -5,6 +5,10 @@
               xmlns:wpfAnimation="clr-namespace:WpfAnimation;assembly=WpfAnimation.Core"
               Title="WpfAnimation.Demo" Height="350" Width="625">
     <Window.Resources>
+        <LinearGradientBrush x:Key="TopGridBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="White" Offset="0.5"/>
+            <GradientStop Color="#F4F4F4" Offset="1"/>
+        </LinearGradientBrush>
         <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource TabItemStyle}" >
             <Setter Property="Opacity" Value="1" />
             <Setter Property="LayoutTransform">
@@ -36,7 +40,7 @@
             <ColumnDefinition Width="370"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#F4F4F4" >
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="{StaticResource TopGridBackground}" >
             <StackPanel Orientation="Horizontal" Margin="5 0 5 0">
                 <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="ListBox"
                              Template="{StaticResource ToogleButtonLeftTemplate}"/>
