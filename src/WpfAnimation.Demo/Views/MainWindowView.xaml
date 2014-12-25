@@ -104,7 +104,7 @@
         <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#D4D4D4" IsEnabled="False" Height="1" 
                       HorizontalAlignment="Stretch" VerticalAlignment="Top" />
         <GridSplitter Grid.Row="1" Grid.Column="0" Width="1" Background="#D4D4D4"/>
-        <TabControl Grid.Row="1" Grid.Column="1" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}">
+        <TabControl Grid.Row="1" Grid.Column="1" BorderThickness="0 1 1 1" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <HeaderedContentControl Header="{Binding UserName}"/>
