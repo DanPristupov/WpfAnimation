@@ -4,6 +4,29 @@
               xmlns:catel="http://catel.codeplex.com"
               xmlns:wpfAnimation="clr-namespace:WpfAnimation;assembly=WpfAnimation.Core"
               Title="WpfAnimation.Demo" Height="350" Width="625">
+    <Window.Resources>
+        <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource TabItemStyle}" >
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="LayoutTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="LayoutTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Transparent" />
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FE9426"/>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -28,21 +51,6 @@
                  wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
                  HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem}"
                  ItemTemplate="{StaticResource ListItemDataTemplate}" BorderThickness="0">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Padding" Value="0" />
-                    <Setter Property="Opacity" Value="1" />
-                    <Setter Property="LayoutTransform">
-                        <Setter.Value>
-                            <ScaleTransform ScaleY="1" />
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="Background" Value="Transparent" />
-                    <Style.Resources>
-                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FE9426"/>
-                    </Style.Resources>
-                </Style>
-            </ListBox.ItemContainerStyle>
             <wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
                 <Storyboard SpeedRatio="15">
                     <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="Opacity">
@@ -86,23 +94,17 @@
             <Button Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
         </StackPanel>
         <GridSplitter Grid.Row="1" Grid.Column="0" Width="1" Background="#D4D4D4"/>
-        <TabControl Grid.Row="1" Grid.Column="1"
-                        wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}">
+        <TabControl Grid.Row="1" Grid.Column="1" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <HeaderedContentControl Header="{Binding UserName}"/>
                 </DataTemplate>
             </TabControl.ItemTemplate>
-            <TabControl.ItemContainerStyle>
-                <Style TargetType="TabItem">
-                    <Setter Property="Opacity" Value="1" />
-                    <Setter Property="LayoutTransform">
-                        <Setter.Value>
-                            <ScaleTransform ScaleX="1" />
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </TabControl.ItemContainerStyle>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding UserName}"/>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
             <wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
                 <Storyboard SpeedRatio="15">
                     <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="Opacity">
@@ -115,7 +117,6 @@
                             <DiscreteDoubleKeyFrame Value="0.0"/>
                         </DoubleAnimationUsingKeyFrames.KeyFrames>
                     </DoubleAnimationUsingKeyFrames>
-
                     <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleX"
                                      From="0.0" To="1.0" Duration="0:0:3">
                         <DoubleAnimation.EasingFunction>
@@ -138,8 +139,6 @@
                     </DoubleAnimation>
                 </Storyboard>
             </wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
-
         </TabControl>
-
     </Grid>
 </catel:Window>
