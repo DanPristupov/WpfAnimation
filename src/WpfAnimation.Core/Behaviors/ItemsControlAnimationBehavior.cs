@@ -30,6 +30,7 @@
 
         private static void ItemsSourcePropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
+            // todo: unsubscribe from the oldValue
             var itemsControl = source as ItemsControl;
             var itemsSource = e.NewValue as IList;
             if (itemsControl == null)
@@ -54,53 +55,48 @@
             {
                 if (args.Action == NotifyCollectionChangedAction.Add)
                 {
-                    ShowAddItemAnimation(itemsControl, args.NewItems);
-                    var index = args.NewStartingIndex;
-                    foreach (var newItem in args.NewItems)
-                    {
-                        mirrorItemsSource.Insert(index, newItem);
-                        index++;
-                    }
+                    AddItemWithAnimation(itemsControl, mirrorItemsSource, args.NewStartingIndex, args.NewItems);
                 }
                 else if (args.Action == NotifyCollectionChangedAction.Remove)
                 {
-                    ShowRemoveItemAnimation(itemsControl, args.OldItems, mirrorItemsSource);
+                    RemoveItemWithAnimation(itemsControl, mirrorItemsSource, args.OldItems);
                 }
             };
         }
 
-        private static void ShowAddItemAnimation(ItemsControl itemsControl, IList newItems)
+        private static void AddItemWithAnimation(ItemsControl itemsControl, IList mirrorItemsSource, int startingIndex, IList newItems)
         {
-            EventHandler statusChanged = null;
-            statusChanged = (sender, args) =>
+            var index = startingIndex;
+            foreach (var newItem in newItems)
             {
-                var showAnimationForMultipleItems = false; // todo: add similar property to showRemoveItem
+                WaitForContainerAndShowAddItemAnimation(itemsControl, newItem);
+                mirrorItemsSource.Insert(index, newItem);
+                index++;
+            }
+        }
+
+        private static void WaitForContainerAndShowAddItemAnimation(ItemsControl itemsControl, object newItem)
+        {
+            EventHandler itemContainerGeneratorOnStatusChanged = null;
+            itemContainerGeneratorOnStatusChanged = (sender, args) =>
+            {
                 if (itemsControl.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
                 {
-                    itemsControl.ItemContainerGenerator.StatusChanged -= statusChanged;
+                    itemsControl.ItemContainerGenerator.StatusChanged -= itemContainerGeneratorOnStatusChanged;
 
-                    // Don't show animation if we have more than one item
-                    if (newItems.Count > 1 && !showAnimationForMultipleItems)
+                    var container = itemsControl.ItemContainerGenerator.ContainerFromItem(newItem) as UIElement;
+                    var addItemAnimation = GetAddItemAnimation(itemsControl);
+                    if (container != null && addItemAnimation != null)
                     {
-                        return;
-                    }
-
-                    foreach (var newItem in newItems)
-                    {
-                        var container = itemsControl.ItemContainerGenerator.ContainerFromItem(newItem) as UIElement;
-                        var addItemAnimation = GetAddItemAnimation(itemsControl);
-                        if (container != null && addItemAnimation != null)
-                        {
-                            Storyboard.SetTarget(addItemAnimation, container);
-                            addItemAnimation.Begin();
-                        }
+                        Storyboard.SetTarget(addItemAnimation, container);
+                        addItemAnimation.Begin();
                     }
                 }
             };
-            itemsControl.ItemContainerGenerator.StatusChanged += statusChanged;
+            itemsControl.ItemContainerGenerator.StatusChanged += itemContainerGeneratorOnStatusChanged;
         }
 
-        private static void ShowRemoveItemAnimation(ItemsControl itemsControl, IList oldItems, IList mirrorItemsSource)
+        private static void RemoveItemWithAnimation(ItemsControl itemsControl, IList mirrorItemsSource, IList oldItems)
         {
             foreach (var oldItem in oldItems)
             {
@@ -110,14 +106,14 @@
                 {
                     Storyboard.SetTarget(removeItemAnimation, container);
 
-                    EventHandler onAnimationCompleted = null;
-                    onAnimationCompleted = ((sender, args) =>
+                    EventHandler removeItemAnimationOnCompleted = null;
+                    removeItemAnimationOnCompleted = (sender, args) =>
                     {
-                        removeItemAnimation.Completed -= onAnimationCompleted;
+                        removeItemAnimation.Completed -= removeItemAnimationOnCompleted;
                         mirrorItemsSource.Remove(oldItem);
-                    });
+                    };
 
-                    removeItemAnimation.Completed += onAnimationCompleted;
+                    removeItemAnimation.Completed += removeItemAnimationOnCompleted;
                     removeItemAnimation.Begin();
                 }
                 else
