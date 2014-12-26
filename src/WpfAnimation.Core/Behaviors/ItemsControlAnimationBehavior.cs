@@ -49,19 +49,18 @@
             {
                 mirrorItemsSource.Add(item);
             }
-            ShowAddItemAnimation(itemsControl, itemsSource);
 
             (itemsSource as INotifyCollectionChanged).CollectionChanged += (sender, args) =>
             {
                 if (args.Action == NotifyCollectionChangedAction.Add)
                 {
+                    ShowAddItemAnimation(itemsControl, args.NewItems);
                     var index = args.NewStartingIndex;
                     foreach (var newItem in args.NewItems)
                     {
                         mirrorItemsSource.Insert(index, newItem);
                         index++;
                     }
-                    ShowAddItemAnimation(itemsControl, args.NewItems);
                 }
                 else if (args.Action == NotifyCollectionChangedAction.Remove)
                 {
