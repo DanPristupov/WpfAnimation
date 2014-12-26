@@ -64,7 +64,7 @@
         <ListBox Grid.Row="1" Grid.Column="0" SelectionMode="Single"
                  wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
                  HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem}"
-                 ItemTemplate="{StaticResource ListItemDataTemplate}" BorderThickness="0">
+                 ItemTemplate="{StaticResource ListItemDataTemplate}">
             <wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
                 <Storyboard SpeedRatio="15">
                     <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="Opacity">
@@ -101,10 +101,10 @@
                 </Storyboard>
             </wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
         </ListBox>
-        <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#D4D4D4" IsEnabled="False" Height="1" 
-                      HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-        <GridSplitter Grid.Row="1" Grid.Column="0" Width="1" Background="#D4D4D4"/>
-        <TabControl Grid.Row="1" Grid.Column="1" BorderThickness="0 1 1 1" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}">
+        <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="False" VerticalAlignment="Top"
+                      Style="{StaticResource HorisontalGridSplitterStyle}"/>
+        <GridSplitter Grid.Row="1" Grid.Column="0" Style="{StaticResource VerticalGridSplitterStyle}"/>
+        <TabControl Grid.Row="1" Grid.Column="1" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <HeaderedContentControl Header="{Binding UserName}"/>
