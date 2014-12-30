@@ -112,7 +112,18 @@
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <ContentControl Content="{Binding UserName}"/>
+                    <StackPanel>
+                        <TextBox x:Name="TextBox" Width="100" Height="20" />
+                        <TextBox x:Name="TextBox1" Width="100" Height="20" />
+                        <Expander x:Name="Expander" Style="{StaticResource ExpanderStyle}" >
+                            <ContentControl Content="{Binding UserName}"/>
+                        </Expander>
+                    </StackPanel>
+                    <DataTemplate.Triggers>
+                        <Trigger SourceName="TextBox" Property="IsFocused" Value="True" >
+                            <Setter Property="IsExpanded" TargetName="Expander" Value="True" />
+                        </Trigger>
+                    </DataTemplate.Triggers>
                 </DataTemplate>
             </TabControl.ContentTemplate>
             <wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
