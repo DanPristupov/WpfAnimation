@@ -718,13 +718,18 @@
                        Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" 
                        AutomationProperties.AutomationId="HorizontalScrollBar"
                        Template="{StaticResource HorizontalScrollBarTemplate}"/>
-            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Margin="0 0 36 0" 
+            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Margin="0 0 0 0" 
                                     Content="{TemplateBinding Content}" 
                                     ContentTemplate="{TemplateBinding ContentTemplate}" 
                                     Grid.Column="0" Grid.Row="0" 
                                     CanContentScroll="{TemplateBinding CanContentScroll}" 
                                     CanHorizontallyScroll="False" CanVerticallyScroll="False"/>
         </Grid>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding Visibility, ElementName=PART_HorizontalScrollBar}" Value="Visible">
+                <Setter Property="Margin" TargetName="PART_ScrollContentPresenter" Value="0 0 36 0"/>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
     <Style TargetType="{x:Type TabControl}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -749,7 +754,7 @@
                         <ScrollViewer  Grid.Row="0" Grid.Column="0" 
                                        Background="#F4F4F4"
                                        VerticalScrollBarVisibility="Disabled" 
-                                       HorizontalScrollBarVisibility="Visible"
+                                       HorizontalScrollBarVisibility="Auto"
                                        Template="{StaticResource ScrollViewerTemplate}" >
                             <TabPanel x:Name="HeaderPanel"  IsItemsHost="true"  
                                     KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"
