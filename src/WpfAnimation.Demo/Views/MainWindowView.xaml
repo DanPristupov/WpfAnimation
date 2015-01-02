@@ -3,46 +3,68 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:catel="http://catel.codeplex.com"
               xmlns:wpfAnimation="clr-namespace:WpfAnimation;assembly=WpfAnimation.Core"
-              Title="WpfAnimation.Demo" Height="350" Width="525">
+              Title="WpfAnimation.Demo" Height="350" Width="750">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="TopGridBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="White" Offset="0.5"/>
+            <GradientStop Color="#F4F4F4" Offset="1"/>
+        </LinearGradientBrush>
+        <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource TabItemStyle}" >
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="LayoutTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="LayoutTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Transparent" />
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FE9426"/>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="380"/>
+            <ColumnDefinition Width="370"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#F4F4F4" >
-            <StackPanel Orientation="Horizontal" Margin="5 0 5 0">
-                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="Button"
-                             Template="{StaticResource ToogleButtonLeftTemplate}"/>
-                <RadioButton GroupName="ToogleButtonGroup" IsEnabled="False" Style="{StaticResource ToogleButtonStyle}"
-                             Content="Button" />
-                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="Button" />
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="{StaticResource TopGridBackground}" MinWidth="520" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="WPF Animation library" FontWeight="400" FontSize="15" Height="20" Margin="5" Foreground="{StaticResource ForegroundBrush}" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="ListBox"
+                             Template="{StaticResource ToogleButtonLeftTemplate}" IsChecked="True"/>
+                <RadioButton GroupName="ToogleButtonGroup" IsEnabled="True" Style="{StaticResource ToogleButtonStyle}"
+                             Content="TabControl" />
+                <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="Expander" />
                 <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" 
                              Template="{StaticResource ToogleButtonRightTemplate}" Content="Button" />
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5 0 5 0">
+                <Button Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
+                <Button Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
             </StackPanel>
         </Grid>
         <ListBox Grid.Row="1" Grid.Column="0" SelectionMode="Single"
                  wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}"
                  HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem}"
-                 ItemTemplate="{StaticResource ListItemDataTemplate}" BorderThickness="0">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Padding" Value="0" />
-                    <Setter Property="Opacity" Value="1" />
-                    <Setter Property="LayoutTransform">
-                        <Setter.Value>
-                            <ScaleTransform ScaleY="1" />
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="Background" Value="Transparent" />
-                    <Style.Resources>
-                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FE9426"/>
-                    </Style.Resources>
-                </Style>
-            </ListBox.ItemContainerStyle>
+                 ItemTemplate="{StaticResource ListItemDataTemplate}">
             <wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
                 <Storyboard SpeedRatio="15">
                     <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="Opacity">
@@ -79,12 +101,54 @@
                 </Storyboard>
             </wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
         </ListBox>
-        <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#D4D4D4" IsEnabled="False" Height="1" 
-                      HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-        <GridSplitter Grid.Row="1" Grid.Column="0" Width="1" Background="#D4D4D4"/>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" >
-            <Button Content="Add" VerticalAlignment="Top" Margin="4 5 2 5" Command="{Binding AddItemCommand}"/>
-            <Button Content="Remove" VerticalAlignment="Top" Margin="2 5 2 5" Command="{Binding DeleteListBoxItemCommand}"/>
-        </StackPanel>
+        <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="False" VerticalAlignment="Top"
+                      Style="{StaticResource HorisontalGridSplitterStyle}"/>
+        <GridSplitter Grid.Row="1" Grid.Column="0" Style="{StaticResource VerticalGridSplitterStyle}"/>
+        <TabControl Grid.Row="1" Grid.Column="1" wpfAnimation:ItemsControlAnimationBehavior.ItemsSource="{Binding ListBoxItems}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <HeaderedContentControl Header="{Binding UserName}"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding UserName}"/>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+            <wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
+                <Storyboard SpeedRatio="15">
+                    <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="Opacity">
+                        <DoubleAnimationUsingKeyFrames.KeyFrames>
+                            <DiscreteDoubleKeyFrame Value="0.0"/>
+                        </DoubleAnimationUsingKeyFrames.KeyFrames>
+                    </DoubleAnimationUsingKeyFrames>
+                    <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleX">
+                        <DoubleAnimationUsingKeyFrames.KeyFrames>
+                            <DiscreteDoubleKeyFrame Value="0.0"/>
+                        </DoubleAnimationUsingKeyFrames.KeyFrames>
+                    </DoubleAnimationUsingKeyFrames>
+                    <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                                     From="0.0" To="1.0" Duration="0:0:3">
+                        <DoubleAnimation.EasingFunction>
+                            <PowerEase Power="3" EasingMode="EaseIn" />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                    <DoubleAnimation BeginTime="0:0:3" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0"
+                                     Duration="0:0:4" />
+                </Storyboard>
+            </wpfAnimation:ItemsControlAnimationBehavior.AddItemAnimation>
+            <wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
+                <Storyboard SpeedRatio="15">
+                    <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="Opacity" To="0.0"
+                                     Duration="0:0:2" />
+                    <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                                     To="0.0" Duration="0:0:3">
+                        <DoubleAnimation.EasingFunction>
+                            <PowerEase Power="3" EasingMode="EaseIn" />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </wpfAnimation:ItemsControlAnimationBehavior.RemoveItemAnimation>
+        </TabControl>
     </Grid>
 </catel:Window>

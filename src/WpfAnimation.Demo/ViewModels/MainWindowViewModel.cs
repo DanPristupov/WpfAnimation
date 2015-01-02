@@ -13,13 +13,15 @@
         public ObservableCollection<Commit> ListBoxItems { get; set; }
         private Random _random;
         private List<BitmapImage> _avatars;
-        private List<string> _userNames = new List<string>() { "John", "Steve", "Suzanne", "Alen", "Craig", "Rob", "Colin" };
+        private List<string> _userNames = new List<string>() { "John", "Steve", "Mike", "Suzanne", "Tom", "Alen", "Craig", "Rob", "Colin", "Jeff" };
         private List<string> _commitDescriptions = new List<string>()
         {
-            "Added remove button",
+            "Update README.md",
             "Updated styles", 
             "Added list box animation",
             "Added remove button",
+            "Fixed ribbon data context example",
+            "Added build scripts",
             "Upgraded all external libraries",
             "Updated NuGet packages",
             "Updated list box item template",
