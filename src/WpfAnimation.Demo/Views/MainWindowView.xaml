@@ -49,8 +49,8 @@
             <TextBlock Text="WPF Animation library" FontWeight="400" FontSize="15" Height="20" Margin="5" Foreground="{StaticResource ForegroundBrush}" />
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                 <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="ListBox"
-                             Template="{StaticResource ToogleButtonLeftTemplate}"/>
-                <RadioButton GroupName="ToogleButtonGroup" IsEnabled="False" Style="{StaticResource ToogleButtonStyle}"
+                             Template="{StaticResource ToogleButtonLeftTemplate}" IsChecked="True"/>
+                <RadioButton GroupName="ToogleButtonGroup" IsEnabled="True" Style="{StaticResource ToogleButtonStyle}"
                              Content="TabControl" />
                 <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="Expander" />
                 <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" 
