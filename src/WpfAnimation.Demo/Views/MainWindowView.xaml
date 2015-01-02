@@ -3,7 +3,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:catel="http://catel.codeplex.com"
               xmlns:wpfAnimation="clr-namespace:WpfAnimation;assembly=WpfAnimation.Core"
-              Title="WpfAnimation.Demo" Height="350" Width="625">
+              Title="WpfAnimation.Demo" Height="350" Width="750">
     <Window.Resources>
         <LinearGradientBrush x:Key="TopGridBackground" EndPoint="0,1" StartPoint="0,0">
             <GradientStop Color="White" Offset="0.5"/>
@@ -46,7 +46,7 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="WPF Animation library" FontWeight="400" FontSize="14" Height="20" Margin="5" Foreground="{StaticResource ForegroundBrush}" />
+            <TextBlock Text="WPF Animation library" FontWeight="400" FontSize="15" Height="20" Margin="5" Foreground="{StaticResource ForegroundBrush}" />
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                 <RadioButton GroupName="ToogleButtonGroup" Style="{StaticResource ToogleButtonStyle}" Content="ListBox"
                              Template="{StaticResource ToogleButtonLeftTemplate}"/>
